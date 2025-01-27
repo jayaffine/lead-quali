@@ -1,13 +1,14 @@
 from openai import AzureOpenAI
 from dotenv import load_dotenv
 import os
+import streamlit as st
 
 load_dotenv()
 
 client = AzureOpenAI(
-    azure_endpoint=os.getenv("base_url"),
-    api_version=os.getenv("api_version"),
-    api_key=os.getenv("1Kad3RvtZheaLL5HARy8Zmlp5evmtpURqA7hapPgxrBNV6Mhu0d9JQQJ99ALAC4f1cMXJ3w3AAABACOGm4Zg"))
+    azure_endpoint=st.secrets.azure.base_url or os.getenv('base_url'),
+    api_version=st.secrets.azure.api_version or os.getenv('api_version'),
+    api_key=st.secrets.azure.api_key or os.getenv('api_key'))
 
 
 def one_limit_call(prompt_):
