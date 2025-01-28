@@ -3,8 +3,25 @@ from utility import FinancialKPIs,data_preprocessing,kpi_dictionary
 from llm import one_limit_call
 from ast import literal_eval
 from streamlit_card import card
+import pandas as pd
 
-st.set_page_config(layout="wide")
+
+st.set_page_config(page_title="Lead 360", layout="wide")
+
+st.markdown("""
+<div style='text-align: center;'>
+<h2 style='font-size: 70px; font-family: Arial, sans-serif; 
+                   letter-spacing: 2px; text-decoration: none;'>
+<a href='https://affine.ai/' target='_blank' rel='noopener noreferrer'
+               style='background: linear-gradient(45deg, #ed4965, #c05aaf);
+                      -webkit-background-clip: text;
+                      -webkit-text-fill-color: transparent;
+                      text-shadow: none; text-decoration: none;'>
+                Lead 360
+</a>
+</h2>
+</div>
+""", unsafe_allow_html=True)
 
 if "list_of_KPI" not in st.session_state:
     st.session_state['list_of_KPI']=None
@@ -15,7 +32,7 @@ if "summary" not in st.session_state:
 if "recommendation" not in st.session_state:
     st.session_state.recommendation=None
 
-selected_ticker=st.selectbox("Select the Payee ::", ['SMAR'])
+selected_ticker=st.selectbox("Select the Payee ::", ['SMAR', 'NVDA'])
 button=st.button("Start")
 
 
@@ -70,6 +87,169 @@ f"""Here is the financial data of payee customers :: \n {financial_details2}
 """
     ans,usage=one_limit_call(prompt_)
     list_of_KPI=literal_eval(ans[ans.find("["):ans.find("]")+1])
+
+# =====================
+
+# Set up the Streamlit app
+# st.set_page_config(page_title="Client Insights Dashboard", layout="wide")
+
+# Set up the Streamlit app
+
+
+    # Section 1: Summarized Insights
+    if selected_ticker == 'SMAR':
+        st.subheader("Summarized Insights")
+        st.write(
+            f"{selected_ticker} (NASDAQ: Smartsheet Inc.) is a service provider with annual revenue of approximately $800 million and a global presence. "
+            "They have been receiving money from Convera. Based on the prediction and CLTV, they are in the must-reach-out segment, and we expect significant business benefits by converting them."
+        )
+
+        # # Section 2: By the Numbers
+        # st.subheader("By the Numbers")
+        # # Placeholder table for numerical data
+        # by_the_numbers_data = pd.DataFrame({
+        #     "#Payments": [12],
+        #     "Payment USD": ["$75,000"],
+        #     "#Beneficiaries": [8],
+        #     "Time since last payment": ["45 days"],
+        #     "Fee USD": ["$1,500"]
+        # })
+        # st.table(by_the_numbers_data)
+
+        # # Section 3: Machine Learning Predictions
+        # st.subheader("Machine Learning Predictions")
+        # # Placeholder table for ML data
+        # ml_predictions_data = pd.DataFrame({
+        #     "Lead Conversion Score": [90],
+        #     "Expected CLTV": ["$250,000"],
+        #     "Recommended Product": ["Enterprise Service Plan"]
+        # })
+        # st.table(ml_predictions_data)
+
+        # # Section 4: Secondary Research
+        # st.subheader("Secondary Research")
+        # # Placeholder table for secondary research data
+        # secondary_research_data = pd.DataFrame({
+        #     "Annual Sales/Revenue": ["$800 Million"],
+        #     "Global Employee Count": ["3,000"],
+        #     "Global Employee Footprint": ["80 Countries"],
+        #     "Share of Voice": ["20%"],
+        #     "Brand Sentiment": ["Positive"]
+        # })
+        # st.table(secondary_research_data)
+
+        st.subheader("By the Numbers")
+        col1, col2 = st.columns(2)
+        with col1:
+            by_the_numbers_data = pd.DataFrame({
+                "#Payments": [12],
+                "Payment USD": ["$75,000"],
+                "#Beneficiaries": [8],
+                "Time since last payment": ["45 days"],
+                "Fee USD": ["$1,500"]
+            })
+            st.dataframe(by_the_numbers_data, hide_index=True)
+
+        # Section 3: Machine Learning Predictions
+        with col2:
+            ml_predictions_data = pd.DataFrame({
+                "Lead Conversion Score": [90],
+                "Expected CLTV": ["$250,000"],
+                "Recommended Product": ["Enterprise Service Plan"]
+            })
+            st.dataframe(ml_predictions_data, hide_index=True)
+
+        # Section 4: Secondary Research
+        st.subheader("Secondary Research")
+        # col3, col4 = st.columns(2)
+        # with col3:
+        secondary_research_data = pd.DataFrame({
+            "Annual Sales/Revenue": ["$800 Million"],
+            "Global Employee Count": ["3,000"],
+            "Global Employee Footprint": ["80 Countries"],
+            "Share of Voice": ["20%"],
+            "Brand Sentiment": ["Positive"]
+        })
+        st.dataframe(secondary_research_data, hide_index=True)
+
+
+        # Section 5: Targeting Info
+        st.subheader("Targeting Info")
+        # Placeholder data for targeting info
+        st.write("**Key Decision Makers:**")
+        targeting_info_data = pd.DataFrame({
+            "Name": ["John Doe", "Jane Smith"],
+            "Designation": ["CFO", "Head of Operations"],
+            "Location": ["New York, USA", "London, UK"],
+            "Contact": ["johndoe@smartsheet.com", "janesmith@smartsheet.com"]
+        })
+        st.dataframe(targeting_info_data,hide_index=True)
+
+        st.write("**Headquarter:** Bellevue, Washington, USA")
+        st.write("**Vendor Spend:** $3 Million")
+    
+    if selected_ticker == "NVDA":
+
+        # Section 1: Summarized Insights
+        st.subheader("Summarized Insights")
+        st.write(
+            "NVIDIA (NASDAQ: NVDA) is a global leader in AI computing and GPU manufacturing, with annual revenue of approximately $27 billion. "
+            "They have been receiving money from Convera. Based on the prediction and CLTV, they are in the must-reach-out segment, and we expect significant business benefits by converting them."
+        )
+
+        # Section 2: By the Numbers
+        st.subheader("By the Numbers")
+        col1, col2 = st.columns(2)
+        with col1:
+            by_the_numbers_data = pd.DataFrame({
+                "#Payments": [25],
+                "Payment USD": ["$200,000"],
+                "#Beneficiaries": [15],
+                "Time since last payment": ["30 days"],
+                "Fee USD": ["$5,000"]
+            })
+            st.dataframe(by_the_numbers_data, hide_index=True)
+
+        # Section 3: Machine Learning Predictions
+        with col2:
+            ml_predictions_data = pd.DataFrame({
+                "Lead Conversion Score": [95],
+                "Expected CLTV": ["$1,000,000"],
+                "Recommended Product": ["AI Computing Solutions"]
+            })
+            st.dataframe(ml_predictions_data, hide_index=True)
+
+        # Section 4: Secondary Research
+        st.subheader("Secondary Research")
+        secondary_research_data = pd.DataFrame({
+            "Annual Sales/Revenue": ["$27 Billion"],
+            "Global Employee Count": ["22,000"],
+            "Global Employee Footprint": ["50 Countries"],
+            "Share of Voice": ["35%"],
+            "Brand Sentiment": ["Very Positive"]
+        })
+        st.dataframe(secondary_research_data, hide_index=True)
+
+        # Section 5: Targeting Info
+
+        st.write("**Key Decision Makers:**")
+        targeting_info_data = pd.DataFrame({
+            "Name": ["Jensen Huang", "Jane Smith"],
+            "Designation": ["CEO", "Head of AI Operations"],
+            "Location": ["Santa Clara, USA", "London, UK"],
+            "Contact": ["jhuang@nvidia.com", "janesmith@nvidia.com"]
+        })
+        st.dataframe(targeting_info_data, hide_index=True)
+
+        st.write("**Headquarter:** Santa Clara, California, USA")
+        st.write("**Vendor Spend:** $5 Million")
+
+
+# ======================
+
+
+
+
     print("Num of KPI ::",len(list_of_KPI))
     st.session_state['list_of_KPI']=list_of_KPI
     st.session_state.summary="### "+ ans[ans.find("Summary"):ans.find("Recommendation")].replace("#","")
