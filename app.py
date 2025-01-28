@@ -98,6 +98,8 @@ f"""Here is the financial data of payee customers :: \n {financial_details2}
 
     # Section 1: Summarized Insights
     if selected_ticker == 'SMAR':
+        st.subheader("Recommendation:")
+        st.write("Recommended")
         st.subheader("Summarized Insights")
         st.write(
             f"{selected_ticker} (NASDAQ: Smartsheet Inc.) is a service provider with annual revenue of approximately $800 million and a global presence. "
@@ -189,7 +191,8 @@ f"""Here is the financial data of payee customers :: \n {financial_details2}
         st.write("**Vendor Spend:** $3 Million")
     
     if selected_ticker == "NVDA":
-
+        st.subheader("Recommendation:")
+        st.write("Recommended")
         # Section 1: Summarized Insights
         st.subheader("Summarized Insights")
         st.write(
